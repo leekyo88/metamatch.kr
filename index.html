@@ -6,7 +6,6 @@
 <meta name="description" content="내가 실제로 무엇을 선택하는지 간파하고, 원하는 사람과 가까워지는 현실적인 경로를 보여주는 METAMATCH.">
 <meta name="theme-color" content="#6657e8">
 <title>METAMATCH | 연애 현실 메타인지 테스트</title>
-<!-- Public deployment build: DEV UI hidden -->
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -50,6 +49,7 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans
 .scale-labels{display:flex;justify-content:space-between;font-size:9px;color:#999;margin-top:6px}
 .resultHead{padding:30px 22px 8px}.resultHead h2{font-size:28px;letter-spacing:-1px;margin:8px 0}.resultHead p{margin-bottom:0}
 .insight-hero{background:#18181b;color:#fff;border:0}.insight-hero small{color:#bdb7ff;font-weight:900}.insight-hero h2{font-size:28px;line-height:1.33;letter-spacing:-1px;margin:8px 0 12px}.insight-hero p{color:#e1e1e5;line-height:1.75;margin:0}
+.meta-score-card{background:linear-gradient(145deg,#18181b,#2c2850);color:#fff;border:0;padding:24px}.meta-score-kicker{font-size:12px;font-weight:900;color:#c8c2ff;letter-spacing:.7px}.meta-score-line{display:flex;align-items:flex-end;gap:10px;margin:8px 0 6px}.meta-score-num{font-size:58px;font-weight:950;letter-spacing:-3px;line-height:1}.meta-score-max{font-size:16px;color:#bbb9c9;padding-bottom:7px}.meta-score-band{display:inline-block;background:#6f61ee;color:#fff;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:900;margin:5px 0 14px}.blindspot{border-top:1px solid rgba(255,255,255,.15);margin-top:13px;padding-top:14px}.blindspot small{display:block;color:#bdb7ff;font-weight:900;margin-bottom:5px}.blindspot b{display:block;font-size:18px;line-height:1.5}.blindspot p{color:#dedde6;font-size:13px;line-height:1.65;margin:6px 0 0}.deep-card{background:#faf9ff;border-color:#e2defd}.deep-card strong{display:block;font-size:18px;line-height:1.55;margin-bottom:7px}.score-parts{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:14px}.score-part{background:rgba(255,255,255,.08);padding:10px 8px;border-radius:10px;text-align:center}.score-part b{display:block;font-size:15px}.score-part span{font-size:9px;color:#c9c7d2;line-height:1.3}
 .insight{border-top:1px solid #eee;padding:15px 0}.insight:first-child{border-top:0;padding-top:0}.insight b{display:block;font-size:16px;line-height:1.45;margin-bottom:5px}.insight p{margin:0;color:#5d5d66;font-size:13px;line-height:1.7}
 .meta-vs{display:grid;grid-template-columns:1fr 28px 1fr;align-items:stretch;gap:6px}.meta-box{background:#f7f7fa;padding:14px;border-radius:13px}.meta-box small{font-size:10px;color:#777;font-weight:850}.meta-box b{display:block;font-size:14px;line-height:1.5;margin-top:5px}.meta-arrow{display:flex;align-items:center;justify-content:center;color:#6657e8;font-weight:900}
 .chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.chip{padding:7px 9px;background:#f1efff;color:#5145c8;border-radius:999px;font-size:12px;font-weight:800}
@@ -76,7 +76,9 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans
 .evidence-note{font-size:11px;line-height:1.65;color:#777;background:#fafafa;border:1px solid #eee;border-radius:12px;padding:12px;margin-top:12px}
 .footer{text-align:center;color:#aaa;font-size:11px;padding:28px}
 .dev-panel{position:fixed;right:14px;bottom:14px;z-index:9999;width:228px;padding:12px;border-radius:14px;background:rgba(24,24,28,.96);box-shadow:0 10px 30px rgba(0,0,0,.25);color:#fff}
-.dev-panel b{display:block;font-size:12px;margin-bottom:8px}.dev-panel .dev-row{display:grid;grid-template-columns:1fr 1fr;gap:7px}.dev-panel button{border:0;border-radius:9px;padding:9px 7px;font-size:11px;font-weight:850;cursor:pointer;background:#fff;color:#202025}.dev-panel button:last-child{background:#7a6cf0;color:#fff}.dev-panel small{display:block;margin-top:7px;font-size:9px;line-height:1.4;color:#bdbdc6}
+.dev-panel b{display:block;font-size:12px;margin-bottom:8px}.dev-panel .dev-row{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.dev-panel .dev-row-3{grid-template-columns:1fr 1fr 1fr}
+.dev-panel .dev-row-3 button{padding:9px 4px;font-size:10px}.dev-panel button{border:0;border-radius:9px;padding:9px 7px;font-size:11px;font-weight:850;cursor:pointer;background:#fff;color:#202025}.dev-panel button:last-child{background:#7a6cf0;color:#fff}.dev-panel small{display:block;margin-top:7px;font-size:9px;line-height:1.4;color:#bdbdc6}
 @media(max-width:600px){.signal-row{grid-template-columns:12px 1fr 70px}.signal-copy{grid-column:2/4}.priority-grid,.route-grid{grid-template-columns:1fr}.dev-panel{right:8px;bottom:8px;width:205px}}
 
 .mbti-card{background:linear-gradient(145deg,#f7f5ff,#fff);border:1px solid #e2dcff}
@@ -90,8 +92,6 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans
 .route-only p{font-size:13px;line-height:1.75;color:#555;margin:0}
 .route-badge{display:inline-block;margin-top:10px;padding:6px 9px;border-radius:999px;background:#18181b;color:#fff;font-size:11px;font-weight:850}
 
-
-#devPanel{display:none!important}
 
 .contact-focus{background:#f7f5ff;border:1px solid #e3defe;border-radius:14px;padding:15px;margin:12px 0;line-height:1.7}
 .contact-focus b{display:block;margin-bottom:4px}
@@ -151,10 +151,11 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans
 </section>
 
 <section id="free" class="screen">
- <div class="resultHead"><span class="pill">무료 분석 결과</span><h2>당신의 연애 선택 패턴</h2><p class="muted">점수보다 응답 사이의 관계를 먼저 읽었습니다.</p></div>
+ <div class="resultHead"><span class="pill">무료 분석 결과</span><h2>당신은 연애에서<br>자신을 얼마나 잘 알고 있을까?</h2><p class="muted">말로 생각하는 나와 실제 선택·행동이 얼마나 일치하는지 봤습니다.</p></div>
 
+ <div id="metaScoreCard" class="card meta-score-card"></div>
  <div id="insightHero" class="card insight-hero"></div>
-
+ <div class="card deep-card"><h3>조건 뒤에 숨은 진짜 욕구</h3><div id="hiddenNeed"></div></div>
  <div class="card"><h3>이거 혹시 당신 얘기 아닌가요?</h3><div id="insightList"></div></div>
 
  <div class="card"><h3>내가 생각하는 나 vs 실제 선택 패턴</h3><div id="metaVs"></div></div>
@@ -247,7 +248,14 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans
 </section>
 </div>
 
-<div id="devPanel" class="dev-panel"><b>DEV · 결과 바로보기</b><div class="dev-row"><button onclick="devFreePreview()">무료 결과</button><button onclick="devPrecisionPreview()">정밀 결과</button></div><small>테스트용 응답을 자동 입력하며 DB에는 저장하지 않습니다.</small><small id="devStatus" style="color:#ffb4b4"></small></div>
+<div id="devPanel" class="dev-panel"><b>DEV · v8 메타인지 결과 바로보기</b>
+<div class="dev-row dev-row-3">
+  <button onclick="devFreePreview()">무료 결과</button>
+  <button onclick="devPrecisionPreviewI()">정밀 결과(I)</button>
+  <button onclick="devPrecisionPreviewE()">정밀 결과(E)</button>
+</div>
+<small>무료 결과는 메타인지 낮은 예시 · 정밀 결과(I)=내향형 · 정밀 결과(E)=외향형<br>테스트용 응답은 DB에 저장되지 않습니다.</small>
+<small id="devStatus" style="color:#ffb4b4"></small></div>
 
 <script>
 const importance5=['1 · 전혀 중요하지 않음','2 · 중요하지 않은 편','3 · 보통','4 · 중요한 편','5 · 매우 중요함'];
@@ -304,10 +312,15 @@ const questions=[
  {cat:'관계 자원',id:'relation_support',type:'choice',text:'내가 매우 지친 날 연인이 힘든 일이 있어 이야기를 하고 싶어 한다면 실제 나와 가장 가까운 반응은?',options:['연락을 피하거나 대화를 최대한 짧게 끝낸다','지금은 여유가 없다고 말하고 대화를 종료한다','짧게 상황을 듣고 지금 가능한 만큼 반응한다','우선 핵심을 듣고 충분히 이야기할 수 있는 시간을 다시 구체적으로 정한다','내 상태와 관계없이 상대가 괜찮아질 때까지 계속 들어준다']},
 
  {cat:'자기인식',id:'selfview_conditions',type:'choice',text:'나는 연애 상대를 고를 때 조건을 많이 따지는 편이라고 생각한다.',options:likert5},
+ {cat:'자기인식',id:'selfview_attraction',type:'choice',text:'나는 연애에서 상대의 외적 끌림이나 자기관리를 꽤 중요하게 보는 편이라고 생각한다.',options:likert5},
+ {cat:'자기인식',id:'selfview_economy',type:'choice',text:'나는 연애에서 상대의 경제적 조건을 꽤 중요하게 보는 편이라고 생각한다.',options:likert5},
+ {cat:'자기인식',id:'selfview_stability',type:'choice',text:'나는 강한 설렘이나 객관적인 조건보다 편안함과 관계의 안정성을 더 중요하게 보는 편이라고 생각한다.',options:likert5},
+ {cat:'자기인식',id:'selfview_selfcare',type:'choice',text:'나는 외적인 자기관리를 꾸준히 잘하고 있는 편이라고 생각한다.',options:likert5},
+ {cat:'자기인식',id:'selfview_conflict',type:'choice',text:'나는 연애 갈등이 생겼을 때 감정을 조절하고 대화로 풀어가는 편이라고 생각한다.',options:likert5},
  {cat:'자기인식',id:'selfview_accommodation',type:'choice',text:'나는 연애를 시작하면 내 시간과 생활을 상대에게 꽤 많이 맞춰주는 편이라고 생각한다.',options:likert5},
 
- {cat:'전략',id:'strategy_flex',type:'choice',text:'마음에 드는 사람이라면 내가 중요하게 생각했던 조건 한두 가지가 기대보다 낮더라도 다른 장점이 충분하면 만나볼 수 있다.',options:likert5},
- {cat:'전략',id:'strategy_change',type:'choice',text:'정말 원하는 이상형이 나타났고, 관계를 이어가기 위해 내가 바꿀 수 있는 부분이 분명하다면 필요한 자기관리·생활습관·관계방식을 바꿀 의향이 있다.',options:likert5},
+ {cat:'전략',id:'strategy_flex_cost',type:'choice',text:'정말 마음에 드는 사람이지만 내가 중요하게 보던 조건 하나가 기대보다 낮다면, 현실적으로 어느 정도까지 받아들일 수 있나요?',options:['1 · 중요한 조건이면 거의 받아들이기 어렵다','2 · 다른 장점이 커도 오래 고민할 것 같다','3 · 조건에 따라 다르다','4 · 다른 핵심 조건이 맞으면 받아들일 수 있다','5 · 관계 전체가 좋다면 한두 조건은 충분히 양보할 수 있다']},
+ {cat:'전략',id:'strategy_change_cost',type:'choice',text:'정말 원하는 사람과 관계를 이어가기 위해 현재 생활방식이나 습관을 바꿔야 한다면, 실제로 어디까지 바꿀 수 있나요?',options:['1 · 현재 생활은 거의 바꾸고 싶지 않다','2 · 아주 작은 조정만 가능하다','3 · 일부 일정·습관은 조정할 수 있다','4 · 취미·일정·관리 습관을 꽤 적극적으로 바꿀 수 있다','5 · 필요하다면 장기적인 생활 우선순위도 바꿀 수 있다']},
  {cat:'전략',id:'strategy_capacity',type:'choice',text:'앞으로 3개월 동안 나를 변화시키는 데 실제로 투입할 수 있는 시간·비용·생활 여건은 어느 정도인가요?',options:capacity5},
  {cat:'전략',id:'strategy_opportunity',type:'choice',text:'현재 생활에서 새로운 연애 후보와 접점이 생기는 빈도는 어느 정도인가요?',hint:'소개, 데이팅 앱, 취미·모임, 직장·학교 등 모든 경로를 포함해 생각해주세요.',options:['1 · 거의 없다','2 · 2~3개월에 한 번 이하','3 · 한 달에 한 번 정도','4 · 한 달에 2~3번 정도','5 · 일주일에 한 번 이상']}
 ];
@@ -320,14 +333,14 @@ const catCopy={
  '생활·가치관':['PART 05','현재의 나 · 생활과 가치관','생활 운영과 가치관을 얼마나 스스로 정리하고 있는지 봅니다.'],
  '정서·관계':['PART 06','현재의 나 · 정서와 관계','좋은 사람처럼 보이는 답보다 실제 갈등 상황에서의 행동을 기준으로 답해주세요.'],
  '관계 자원':['PART 07','관계에 제공 가능한 자원','자기희생이 아니라 실제로 지속할 수 있는 시간과 정서적 여유를 봅니다.'],
- '자기인식':['PART 08','내가 생각하는 나','앞에서 답한 실제 선택과 내가 생각하는 나 사이의 차이를 확인합니다.'],
- '전략':['PART 09','현실적인 연애 전략','기준의 유연성, 변화 의향, 실제 여력과 만남 기회를 확인합니다.']
+ '자기인식':['PART 08','내가 생각하는 나','앞에서 했던 선택을 떠올리기보다, 평소 스스로를 어떻게 생각해왔는지 답해주세요. 이 차이가 연애 메타인지의 핵심입니다.'],
+ '전략':['PART 09','현실적인 연애 전략','의향이 아니라 실제로 감수할 수 있는 비용과 변화 범위, 그리고 만남 기회를 확인합니다.']
 };
 
 let demographics={gender:'',target:'',age:'',mbti:''};
 let answers={},qi=0,precisionQuestions=[],precisionAnswers=[],pi=0,DEV_PREVIEW=false,freeSaved=false,precisionSaved=false,lastPrecisionAnalysis=null;
-const SURVEY_VERSION='v7.5-contact-strategy';
-const SCORING_VERSION='4.0-beta';
+const SURVEY_VERSION='v8.0-metacognition';
+const SCORING_VERSION='5.0-metacognition-beta';
 const SUPABASE_URL='https://ntprvuoqxrcndponwwuz.supabase.co';
 const SUPABASE_KEY='sb_publishable_FzSLo2PAlVUBs3vLjfkjbQ_OwaSTKg_';
 let responseId=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():'r-'+Date.now()+'-'+Math.random().toString(16).slice(2);
@@ -480,10 +493,49 @@ function analyze(){
  const actualAccommodation=avgValid([pct5(answers.relation_time),(answers.trade_career_time??2)/4*100]);
  const selfViewAccommodation=pct5(answers.selfview_accommodation);
 
- const flex=pct5(answers.strategy_flex),change=pct5(answers.strategy_change),capacity=pct5(answers.strategy_capacity),opportunity=pct5(answers.strategy_opportunity);
+ // 연애 메타인지: '좋고 나쁨'이 아니라 자기예측과 실제 선택·행동의 일치도를 본다.
+ const actualAttractionPriority=avgValid([want.attraction,want.selfcare]);
+ const actualStabilityPriority=avgValid([
+   (answers.trade_condition_comfort??2)/4*100,
+   (answers.trade_attraction_stability??2)/4*100,
+   (answers.trade_career_time??2)/4*100,
+   want.emotional,want.resource
+ ]);
+ const actualConflictSkill=avgValid([emotional.regulation,emotional.conflict,emotional.repair,emotional.boundary]);
+ const accuracy=(pred,actual)=>pred==null||actual==null?null:clamp(100-Math.abs(pred-actual));
+ const metaPairs=[
+   {id:'conditions',label:'내 조건 기준',pred:selfViewConditions,actual:actualConditionIndex,score:accuracy(selfViewConditions,actualConditionIndex)},
+   {id:'attraction',label:'외적 기준',pred:pct5(answers.selfview_attraction),actual:actualAttractionPriority,score:accuracy(pct5(answers.selfview_attraction),actualAttractionPriority)},
+   {id:'economy',label:'경제 기준',pred:pct5(answers.selfview_economy),actual:want.economy,score:accuracy(pct5(answers.selfview_economy),want.economy)},
+   {id:'stability',label:'안정성 우선순위',pred:pct5(answers.selfview_stability),actual:actualStabilityPriority,score:accuracy(pct5(answers.selfview_stability),actualStabilityPriority)},
+   {id:'selfcare',label:'내 자기관리',pred:pct5(answers.selfview_selfcare),actual:self.selfcare,score:accuracy(pct5(answers.selfview_selfcare),self.selfcare)},
+   {id:'conflict',label:'내 갈등 대응',pred:pct5(answers.selfview_conflict),actual:actualConflictSkill,score:accuracy(pct5(answers.selfview_conflict),actualConflictSkill)},
+   {id:'accommodation',label:'관계에 맞추는 정도',pred:selfViewAccommodation,actual:actualAccommodation,score:accuracy(selfViewAccommodation,actualAccommodation)}
+ ];
+ const preferenceAccuracy=avgValid(metaPairs.filter(x=>['conditions','attraction','economy','stability'].includes(x.id)).map(x=>x.score));
+ const selfAccuracy=avgValid(metaPairs.filter(x=>['selfcare','conflict','accommodation'].includes(x.id)).map(x=>x.score));
+ // '중요하다'고 말한 것과 비용이 생기는 선택에서 지킨 것의 일치도
+ const priorityConsistency=avgValid([
+   accuracy(want.emotional,(answers.trade_attraction_stability??2)/4*100),
+   accuracy(want.resource,(answers.trade_career_time??2)/4*100),
+   accuracy(want.econ.money_mgmt,(answers.trade_income_management??2)/4*100),
+   accuracy(avgValid([want.emotional,want.values]),(answers.trade_condition_comfort??2)/4*100)
+ ]);
+ const metacogScore=Math.round(clamp(avgValid([
+   preferenceAccuracy,preferenceAccuracy,preferenceAccuracy,preferenceAccuracy,
+   priorityConsistency,priorityConsistency,priorityConsistency,
+   selfAccuracy,selfAccuracy,selfAccuracy
+ ])??50));
+ const blindSpot=[...metaPairs].filter(x=>x.score!=null).sort((a,b)=>a.score-b.score)[0]||null;
+ const metaBand=metacogScore>=85?'매우 높은 편':metacogScore>=70?'높은 편':metacogScore>=50?'사각지대가 조금 있음':metacogScore>=30?'낮은 편':'재점검이 필요한 편';
+
+ const flex=pct5(answers.strategy_flex_cost),change=pct5(answers.strategy_change_cost),capacity=pct5(answers.strategy_capacity),opportunity=pct5(answers.strategy_opportunity);
  const meaningful=gaps.filter(g=>g.gap>=18);
  let type;
- if(!meaningful.length)type=opportunity<=25?'opportunity':'balanced';
+ // 실제 데이터에서 접점 부족이 과소판정된 문제를 수정: 기회가 거의 없으면 우선 병목으로 본다.
+ if(opportunity<=25)type='opportunity';
+ else if(opportunity<=50&&!meaningful.length)type='opportunity';
+ else if(!meaningful.length)type='balanced';
  else if(flex<40&&change<40)type='fixed';
  else if(flex<45&&change>=60)type='growth';
  else if(flex>=60&&change<45)type='adjust';
@@ -495,10 +547,10 @@ function analyze(){
  adjust:['기준조정형','현재의 나를 크게 바꾸기보다 덜 중요한 조건의 허용 범위를 넓히는 데 더 열려 있습니다.'],
  dual:['양방향 조정형','나와 상대 기준 어느 한쪽만 크게 바꾸기보다 비용이 작은 변화와 조건 조정을 함께 쓰는 편입니다.'],
  fixed:['고정기준형','원하는 기준도 현재의 나도 크게 바꾸고 싶지 않아 탐색 환경과 시간이 중요한 유형입니다.'],
- opportunity:['기회부족형','조건 차이보다 새로운 사람과 만날 표본 자체가 부족한 편입니다.']
+ opportunity:['기회부족형','현재 가장 큰 병목은 기준보다 새로운 연애 후보와 만날 표본 자체가 부족한 데 있습니다.']
  };
 
- return {want,self,demand,supply,gaps,meaningful,actualConditionIndex,selfViewConditions,actualAccommodation,selfViewAccommodation,flex,change,capacity,opportunity,type,typeInfo:typeInfo[type]};
+ return {want,self,demand,supply,gaps,meaningful,actualConditionIndex,selfViewConditions,actualAccommodation,selfViewAccommodation,actualAttractionPriority,actualStabilityPriority,actualConflictSkill,metaPairs,preferenceAccuracy,selfAccuracy,priorityConsistency,metacogScore,metaBand,blindSpot,flex,change,capacity,opportunity,type,typeInfo:typeInfo[type]};
 }
 
 function renderRadar(ideal,me){
@@ -552,6 +604,34 @@ function renderMbtiLens(a,compact=false){
  <p class="muted">${m.dom.name} 성향은 ${m.dom.short}으로 설명할 수 있습니다. ${fit} ${direct}</p>`;
  if(compact)return core;
  return core+`<div class="report-callout"><b>연애에서 보이는 특징</b><br>${m.dom.name}의 성향과 이번 답변을 같이 보면, 사람을 볼 때 <b>${m.dom.axis}</b>에서 느껴지는 일관성을 중요하게 확인하는 편입니다. 순간적인 호감만으로 결정하기보다 “이 사람이 내가 원하는 관계와 실제로 맞는가”를 판단하려는 쪽에 가깝습니다.</div>`;
+}
+
+function metaScoreCopy(a){
+ const b=a.blindSpot;
+ let title='스스로 생각하는 나와 실제 선택이 대체로 비슷합니다.';
+ let body='현재 답변에서는 큰 오차 하나보다 몇 개의 작은 차이가 함께 나타났습니다.';
+ if(b){
+   const pred=b.pred??50,act=b.actual??50;
+   const dir=act>pred?'실제로는 스스로 생각한 것보다 더 강하게 나타났습니다.':'스스로 생각한 것보다 실제 응답에서는 약하게 나타났습니다.';
+   title=`가장 큰 사각지대 · ${b.label}`;
+   body=`이 부분은 자기평가와 실제 선택·행동 사이의 차이가 가장 컸습니다. ${dir}`;
+ }
+ return `<div class="meta-score-kicker">연애 메타인지 지수</div><div class="meta-score-line"><div class="meta-score-num">${a.metacogScore}</div><div class="meta-score-max">/ 100</div></div><div class="meta-score-band">${a.metaBand}</div><div class="score-parts"><div class="score-part"><b>${Math.round(a.preferenceAccuracy??50)}</b><span>내 기준 인식</span></div><div class="score-part"><b>${Math.round(a.priorityConsistency??50)}</b><span>말 vs 선택</span></div><div class="score-part"><b>${Math.round(a.selfAccuracy??50)}</b><span>현재 나 인식</span></div></div><div class="blindspot"><small>${title}</small><b>${b?`${b.label}에서 생각과 실제가 엇갈렸습니다.`:'큰 사각지대는 두드러지지 않았습니다.'}</b><p>${body}</p></div>`;
+}
+function hiddenNeedCopy(a){
+ const candidates=[];
+ if(a.want.econ.money_mgmt>=75&&a.want.econ.debt>=75&&avgValid([a.want.econ.assets,a.want.econ.income])<70)
+   candidates.push(['당신이 원하는 건 “부자”보다 “돈 문제로 관계를 흔들지 않는 사람”에 가깝습니다.','자산·소득의 크기보다 부채 안정성과 경제관념을 더 높게 봤습니다. 돈의 총량보다 함께 미래를 계획할 수 있는 안정감이 핵심에 가깝습니다.']);
+ if((answers.trade_attraction_stability??2)>=3&&a.want.emotional>=65)
+   candidates.push(['당신이 원하는 건 강한 설렘보다 “감정적으로 안전한 관계”에 가깝습니다.','외적으로 더 끌리더라도 태도가 불안정한 사람보다 꾸준하게 애정을 주는 쪽을 골랐습니다. 끌림은 입구지만, 최종 선택에서는 안정성이 더 오래 남습니다.']);
+ if(a.want.selfcare>=75)
+   candidates.push(['당신이 보는 건 외모 자체보다 “자기 자신을 방치하지 않는 태도”일 수 있습니다.','상대의 자기관리를 높게 봤습니다. 이는 타고난 외모보다 생활을 관리하고 자신을 돌보는 태도에 매력을 느끼는 패턴으로 읽힙니다.']);
+ if(a.want.resource>=75)
+   candidates.push(['당신이 원하는 건 많은 연락보다 “나를 실제 우선순위에 넣는 사람”일 수 있습니다.','관계에 시간과 관심을 쓰는 정도를 높게 봤습니다. 말보다 실제 일정과 행동에서 관계의 비중을 확인하려는 쪽에 가깝습니다.']);
+ if(a.want.values>=75)
+   candidates.push(['당신이 원하는 건 취향 일치보다 “내가 나로 있어도 대화가 이어지는 관계”에 가깝습니다.','가치관과 대화를 중요하게 본다는 건 모든 생각이 같아야 한다기보다, 다른 생각을 주고받아도 관계가 깨지지 않는 상대를 원한다는 뜻에 가깝습니다.']);
+ const c=candidates[0]||['당신은 조건 하나보다 “여러 조건이 함께 만들어내는 관계의 질”을 보는 편입니다.','외모·경제·정서·가치관 중 하나만 압도적으로 좋은 사람보다, 실제로 함께 지낼 때 안정적으로 굴러갈 수 있는 조합을 중요하게 보는 쪽에 가깝습니다.'];
+ return `<strong>${c[0]}</strong><p class="muted">${c[1]}</p>`;
 }
 
 function makeInsights(a){
@@ -698,7 +778,9 @@ function reverseNarrative(a,rp){
 }
 function renderFree(){
  const a=analyze(),ins=makeInsights(a);
- document.getElementById('insightHero').innerHTML=`<small>당신을 한 문장으로 말하면</small><h2>${heroCopy(a)}</h2><p>왜 이런 결과가 나왔는지, 당신이 실제 선택한 답들을 함께 보면서 설명해드릴게요.</p>`;
+ document.getElementById('metaScoreCard').innerHTML=metaScoreCopy(a);
+ document.getElementById('insightHero').innerHTML=`<small>당신을 한 문장으로 말하면</small><h2>${heroCopy(a)}</h2><p>이제부터는 왜 이런 결과가 나왔는지 실제 선택과 행동을 근거로 풀어봅니다.</p>`;
+ document.getElementById('hiddenNeed').innerHTML=hiddenNeedCopy(a);
  document.getElementById('insightList').innerHTML=(ins.length?ins:[['당신은 한 가지 조건으로 사람을 고르기보다 여러 조건의 조합을 보는 편입니다.','중요도와 실제 선택 문항을 함께 보면 단일 기준보다 전체 균형이 선택에 더 많이 개입합니다.']]).map(x=>`<div class="insight"><b>${x[0]}</b><p>${x[1]}</p></div>`).join('');
  document.getElementById('metaVs').innerHTML=metaVsCopy(a);
  document.getElementById('mbtiFreeLens').innerHTML=renderMbtiLens(a,true);
@@ -755,8 +837,8 @@ function contactStrategy(a,mb){
  const examples=[];
 
  // Ideal-priority specific recurring / discovery places
- if(topKeys.includes('외적 관리')){
-   examples.push(['운동·자기관리 접점','같은 시간대의 헬스장·수영장·클라이밍·러닝크루·테니스 레슨처럼 생활 루틴과 자기관리 태도가 반복해서 보이는 곳']);
+ if(topKeys.includes('외적 관리') && !mb.isI){
+   examples.push(['운동·자기관리 접점','헬스장·수영장·클라이밍·러닝크루·테니스 레슨처럼 생활 루틴과 자기관리 태도가 자연스럽게 드러나는 곳']);
  }
  if(topKeys.includes('경제 기반')){
    examples.push(['커리어·학습 접점','직무 스터디·자격증 학원·외국어 학원·업계 세미나·프로젝트형 커뮤니티처럼 일과 성장 태도가 자연스럽게 드러나는 곳']);
@@ -778,7 +860,7 @@ function contactStrategy(a,mb){
     examples:[
       ['생활형 반복 접점','같은 시간대의 단골 카페, 자주 가는 식당, 동네 베이커리, 코워킹 공간처럼 생활 반경 안에서 자연스럽게 반복 방문할 수 있는 곳'],
       ['배움형 반복 접점','언어학원, 자격증 수업, 문화센터, 공방, 독서모임처럼 같은 구성원을 주기적으로 만나는 곳'],
-      ['운동형 반복 접점','헬스장, 수영장, 클라이밍짐, 테니스·골프 레슨, 러닝크루처럼 일정한 시간에 반복적으로 참여할 수 있는 활동']
+      ['운동·자기관리 반복 접점','같은 시간대의 헬스장·수영장·클라이밍짐·러닝크루·테니스·골프 레슨처럼 반복적으로 참여하면서 생활 루틴과 자기관리 태도까지 자연스럽게 볼 수 있는 곳']
     ].concat(examples.slice(0,2)),
     note:'단골 장소의 목적은 낯선 사람에게 무리하게 말을 거는 것이 아니라, 생활 속에서 “다시 볼 가능성이 있는 사람”의 수를 늘리는 것입니다.'
    };
@@ -865,7 +947,7 @@ function answerText(q,val){
 function rawFreeAnswerPayload(){return questions.map((q,i)=>({question_number:i+1,question_id:q.id,category:q.cat,question:q.text,answer:answers[q.id]??null,answer_text:answerText(q,answers[q.id])}))}
 function rawPrecisionAnswerPayload(){return precisionQuestions.map((q,i)=>({question_number:i+1,category:'정밀 분석',question:q[0],answer_index:precisionAnswers[i],answer_text:q[1][precisionAnswers[i]]??null}))}
 async function request(method,path,body){const r=await fetch(SUPABASE_URL+'/rest/v1/'+path,{method,headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify(body)});if(!r.ok)throw new Error(await r.text())}
-async function saveFreeData(){if(DEV_PREVIEW||freeSaved||!document.getElementById('dataConsent').checked)return;const a=analyze();const payload={response_id:responseId,survey_version:SURVEY_VERSION,completion_stage:'free',gender:demographics.gender,target_gender:demographics.target,age_band:demographics.age,mbti:demographics.mbti,consent_version:'2026-10-v1',free_answers:rawFreeAnswerPayload(),free_analysis:{basic_info:{age_band:demographics.age},want:a.want,self:a.self,gaps:a.gaps,type:a.type,global_flex:a.flex,global_change:a.change,capacity:a.capacity,opportunity:a.opportunity},scoring_version:SCORING_VERSION};try{await request('POST','metamatch_responses',payload);freeSaved=true}catch(e){console.error('free save failed',e)}}
+async function saveFreeData(){if(DEV_PREVIEW||freeSaved||!document.getElementById('dataConsent').checked)return;const a=analyze();const payload={response_id:responseId,survey_version:SURVEY_VERSION,completion_stage:'free',gender:demographics.gender,target_gender:demographics.target,age_band:demographics.age,mbti:demographics.mbti,consent_version:'2026-10-v1',free_answers:rawFreeAnswerPayload(),free_analysis:{basic_info:{age_band:demographics.age},want:a.want,self:a.self,gaps:a.gaps,type:a.type,metacognition:{score:a.metacogScore,band:a.metaBand,preference_accuracy:a.preferenceAccuracy,priority_consistency:a.priorityConsistency,self_accuracy:a.selfAccuracy,blind_spot:a.blindSpot},global_flex:a.flex,global_change:a.change,capacity:a.capacity,opportunity:a.opportunity},scoring_version:SCORING_VERSION};try{await request('POST','metamatch_responses',payload);freeSaved=true}catch(e){console.error('free save failed',e)}}
 async function savePrecisionData(){if(DEV_PREVIEW||precisionSaved)return;if(!freeSaved)await saveFreeData();if(!freeSaved)return;try{await request('POST','rpc/complete_metamatch_precision',{p_response_id:responseId,p_precision_answers:rawPrecisionAnswerPayload(),p_precision_analysis:lastPrecisionAnalysis||{},p_scoring_version:SCORING_VERSION});precisionSaved=true}catch(e){console.error('precision save failed',e)}}
 
 function devSeedFree(){
@@ -884,12 +966,47 @@ function devSeedFree(){
  answers.selfcare_interest=4;answers.selfcare_routine=3;
  answers.self_income=3;answers.self_assets=2;answers.self_asset_origin=2;answers.self_earning=3;answers.self_debt=1;answers.self_money_mgmt=4;
  answers.emotion_regulation=3;answers.emotion_conflict=4;answers.emotion_repair=4;answers.emotion_affection=2;answers.emotion_boundary=3;
- answers.relation_time=2;answers.relation_support=3;answers.selfview_conditions=2;answers.selfview_accommodation=3;
- answers.strategy_flex=2;answers.strategy_change=4;answers.strategy_capacity=3;answers.strategy_opportunity=1;
+ answers.relation_time=2;answers.relation_support=3;answers.selfview_conditions=1;answers.selfview_attraction=2;answers.selfview_economy=1;answers.selfview_stability=2;answers.selfview_selfcare=4;answers.selfview_conflict=4;answers.selfview_accommodation=3;
+ answers.strategy_flex_cost=3;answers.strategy_change_cost=4;answers.strategy_capacity=3;answers.strategy_opportunity=1;
 }
 function devSeedPrecision(){precisionAnswers=[1,2,3,0,4,3,3,2,2,3]}
 function devFreePreview(){try{devSeedFree();renderFree();showOnly('free');document.getElementById('devStatus').textContent=''}catch(e){console.error(e);document.getElementById('devStatus').textContent='무료 결과 오류: '+e.message}}
-function devPrecisionPreview(){try{devSeedFree();renderFree();devSeedPrecision();renderReport();showOnly('report');document.getElementById('devStatus').textContent=''}catch(e){console.error(e);document.getElementById('devStatus').textContent='정밀 결과 오류: '+e.message}}
+function devPrecisionPreviewI(){
+ try{
+   devSeedFree();
+   demographics.mbti='INTJ';
+   // 내향형 예시: 만남 기회를 낮게 두어 반복 접점 전략이 잘 보이게 함
+   answers.strategy_opportunity=1;
+   renderFree();
+   devSeedPrecision();
+   renderReport();
+   showOnly('report');
+   document.getElementById('devStatus').textContent='I 예시 · INTJ';
+ }catch(e){
+   console.error(e);
+   document.getElementById('devStatus').textContent='정밀 I 오류: '+e.message;
+ }
+}
+function devPrecisionPreviewE(){
+ try{
+   devSeedFree();
+   // 외향형 예시. 실제 점수 계산은 동일하고, 접점 전략/MBTI 해석만 외향형 프로필로 확인.
+   demographics.mbti='ENFP';
+   // 새로운 후보를 만나는 빈도도 조금 높여 외향형 결과의 문맥을 자연스럽게 확인.
+   answers.strategy_opportunity=3;
+   renderFree();
+   devSeedPrecision();
+   renderReport();
+   showOnly('report');
+   document.getElementById('devStatus').textContent='E 예시 · ENFP';
+ }catch(e){
+   console.error(e);
+   document.getElementById('devStatus').textContent='정밀 E 오류: '+e.message;
+ }
+}
+// 이전 함수명을 호출하는 코드가 남아 있어도 내향형 미리보기로 연결.
+function devPrecisionPreview(){devPrecisionPreviewI()}
+
 </script>
 </body>
 </html>
