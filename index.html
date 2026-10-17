@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="내가 실제로 무엇을 선택하는지 간파하고, 원하는 사람과 가까워지는 현실적인 경로를 보여주는 METAMATCH.">
 <meta name="theme-color" content="#6657e8">
-<title>METAMATCH | 연애 현실 메타인지 테스트</title>
+<title>METAMATCH | 연애 현실 메타인지 테스트 Beta</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -79,7 +79,7 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans
 .dev-panel b{display:block;font-size:12px;margin-bottom:8px}.dev-panel .dev-row{display:grid;grid-template-columns:1fr 1fr;gap:7px}
 .dev-panel .dev-row-3{grid-template-columns:1fr 1fr 1fr}
 .dev-panel .dev-row-3 button{padding:9px 4px;font-size:10px}.dev-panel button{border:0;border-radius:9px;padding:9px 7px;font-size:11px;font-weight:850;cursor:pointer;background:#fff;color:#202025}.dev-panel button:last-child{background:#7a6cf0;color:#fff}.dev-panel small{display:block;margin-top:7px;font-size:9px;line-height:1.4;color:#bdbdc6}
-@media(max-width:600px){.signal-row{grid-template-columns:12px 1fr 70px}.signal-copy{grid-column:2/4}.priority-grid,.route-grid{grid-template-columns:1fr}.dev-panel{right:8px;bottom:8px;width:205px}}
+@media(max-width:600px){.signal-row{grid-template-columns:12px 1fr 70px}.signal-copy{grid-column:2/4}.priority-grid,.route-grid{grid-template-columns:1fr}}
 
 .mbti-card{background:linear-gradient(145deg,#f7f5ff,#fff);border:1px solid #e2dcff}
 .function-row{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 12px}
@@ -248,15 +248,6 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans
 </section>
 </div>
 
-<div id="devPanel" class="dev-panel"><b>DEV · v8 메타인지 결과 바로보기</b>
-<div class="dev-row dev-row-3">
-  <button onclick="devFreePreview()">무료 결과</button>
-  <button onclick="devPrecisionPreviewI()">정밀 결과(I)</button>
-  <button onclick="devPrecisionPreviewE()">정밀 결과(E)</button>
-</div>
-<small>무료 결과는 메타인지 낮은 예시 · 정밀 결과(I)=내향형 · 정밀 결과(E)=외향형<br>테스트용 응답은 DB에 저장되지 않습니다.</small>
-<small id="devStatus" style="color:#ffb4b4"></small></div>
-
 <script>
 const importance5=['1 · 전혀 중요하지 않음','2 · 중요하지 않은 편','3 · 보통','4 · 중요한 편','5 · 매우 중요함'];
 const likert5=['1 · 전혀 그렇지 않음','2 · 그렇지 않은 편','3 · 보통','4 · 그런 편','5 · 매우 그렇다'];
@@ -338,8 +329,8 @@ const catCopy={
 };
 
 let demographics={gender:'',target:'',age:'',mbti:''};
-let answers={},qi=0,precisionQuestions=[],precisionAnswers=[],pi=0,DEV_PREVIEW=false,freeSaved=false,precisionSaved=false,lastPrecisionAnalysis=null;
-const SURVEY_VERSION='v8.0-metacognition';
+let answers={},qi=0,precisionQuestions=[],precisionAnswers=[],pi=0,freeSaved=false,precisionSaved=false,lastPrecisionAnalysis=null;
+const SURVEY_VERSION='v8.0-metacognition-beta';
 const SCORING_VERSION='5.0-metacognition-beta';
 const SUPABASE_URL='https://ntprvuoqxrcndponwwuz.supabase.co';
 const SUPABASE_KEY='sb_publishable_FzSLo2PAlVUBs3vLjfkjbQ_OwaSTKg_';
@@ -947,65 +938,9 @@ function answerText(q,val){
 function rawFreeAnswerPayload(){return questions.map((q,i)=>({question_number:i+1,question_id:q.id,category:q.cat,question:q.text,answer:answers[q.id]??null,answer_text:answerText(q,answers[q.id])}))}
 function rawPrecisionAnswerPayload(){return precisionQuestions.map((q,i)=>({question_number:i+1,category:'정밀 분석',question:q[0],answer_index:precisionAnswers[i],answer_text:q[1][precisionAnswers[i]]??null}))}
 async function request(method,path,body){const r=await fetch(SUPABASE_URL+'/rest/v1/'+path,{method,headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify(body)});if(!r.ok)throw new Error(await r.text())}
-async function saveFreeData(){if(DEV_PREVIEW||freeSaved||!document.getElementById('dataConsent').checked)return;const a=analyze();const payload={response_id:responseId,survey_version:SURVEY_VERSION,completion_stage:'free',gender:demographics.gender,target_gender:demographics.target,age_band:demographics.age,mbti:demographics.mbti,consent_version:'2026-10-v1',free_answers:rawFreeAnswerPayload(),free_analysis:{basic_info:{age_band:demographics.age},want:a.want,self:a.self,gaps:a.gaps,type:a.type,metacognition:{score:a.metacogScore,band:a.metaBand,preference_accuracy:a.preferenceAccuracy,priority_consistency:a.priorityConsistency,self_accuracy:a.selfAccuracy,blind_spot:a.blindSpot},global_flex:a.flex,global_change:a.change,capacity:a.capacity,opportunity:a.opportunity},scoring_version:SCORING_VERSION};try{await request('POST','metamatch_responses',payload);freeSaved=true}catch(e){console.error('free save failed',e)}}
-async function savePrecisionData(){if(DEV_PREVIEW||precisionSaved)return;if(!freeSaved)await saveFreeData();if(!freeSaved)return;try{await request('POST','rpc/complete_metamatch_precision',{p_response_id:responseId,p_precision_answers:rawPrecisionAnswerPayload(),p_precision_analysis:lastPrecisionAnalysis||{},p_scoring_version:SCORING_VERSION});precisionSaved=true}catch(e){console.error('precision save failed',e)}}
+async function saveFreeData(){if(freeSaved||!document.getElementById('dataConsent').checked)return;const a=analyze();const payload={response_id:responseId,survey_version:SURVEY_VERSION,completion_stage:'free',gender:demographics.gender,target_gender:demographics.target,age_band:demographics.age,mbti:demographics.mbti,consent_version:'2026-10-v1',free_answers:rawFreeAnswerPayload(),free_analysis:{basic_info:{age_band:demographics.age},want:a.want,self:a.self,gaps:a.gaps,type:a.type,metacognition:{score:a.metacogScore,band:a.metaBand,preference_accuracy:a.preferenceAccuracy,priority_consistency:a.priorityConsistency,self_accuracy:a.selfAccuracy,blind_spot:a.blindSpot},global_flex:a.flex,global_change:a.change,capacity:a.capacity,opportunity:a.opportunity},scoring_version:SCORING_VERSION};try{await request('POST','metamatch_responses',payload);freeSaved=true}catch(e){console.error('free save failed',e)}}
+async function savePrecisionData(){if(precisionSaved)return;if(!freeSaved)await saveFreeData();if(!freeSaved)return;try{await request('POST','rpc/complete_metamatch_precision',{p_response_id:responseId,p_precision_answers:rawPrecisionAnswerPayload(),p_precision_analysis:lastPrecisionAnalysis||{},p_scoring_version:SCORING_VERSION});precisionSaved=true}catch(e){console.error('precision save failed',e)}}
 
-function devSeedFree(){
- DEV_PREVIEW=true;demographics={gender:'female',target:'male',age:'30-34',mbti:'INTJ'};answers={};
- questions.forEach((q,i)=>{
-  if(q.type==='choice')answers[q.id]=Math.min(q.options.length-1,Math.max(0,Math.round((q.options.length-1)*([.72,.78,.62,.35,.82,.68,.75][i%7]))));
-  if(q.type==='multi')answers[q.id]=q.id==='selfcare_items'?[0,1,2,3,4,6]:[0,1,2,3,4,5,6,7];
-  if(q.type==='matrix'){answers[q.id]={};q.rows.forEach(([rid],j)=>answers[q.id][rid]=[3,2,3,4,4][j%5])}
- });
- // A more readable test profile
- answers.ideal_attraction=4;answers.ideal_selfcare=4;
- answers.ideal_econ={assets:3,income:2,earning:3,debt:4,money_mgmt:4};
- answers.ideal_emotion={regulation:4,conflict:4,affection:3,boundary:4};
- answers.ideal_values=4;answers.ideal_resource=4;
- answers.trade_condition_comfort=3;answers.trade_attraction_stability=3;answers.trade_asset_career=1;answers.trade_income_management=4;answers.trade_career_time=3;
- answers.selfcare_interest=4;answers.selfcare_routine=3;
- answers.self_income=3;answers.self_assets=2;answers.self_asset_origin=2;answers.self_earning=3;answers.self_debt=1;answers.self_money_mgmt=4;
- answers.emotion_regulation=3;answers.emotion_conflict=4;answers.emotion_repair=4;answers.emotion_affection=2;answers.emotion_boundary=3;
- answers.relation_time=2;answers.relation_support=3;answers.selfview_conditions=1;answers.selfview_attraction=2;answers.selfview_economy=1;answers.selfview_stability=2;answers.selfview_selfcare=4;answers.selfview_conflict=4;answers.selfview_accommodation=3;
- answers.strategy_flex_cost=3;answers.strategy_change_cost=4;answers.strategy_capacity=3;answers.strategy_opportunity=1;
-}
-function devSeedPrecision(){precisionAnswers=[1,2,3,0,4,3,3,2,2,3]}
-function devFreePreview(){try{devSeedFree();renderFree();showOnly('free');document.getElementById('devStatus').textContent=''}catch(e){console.error(e);document.getElementById('devStatus').textContent='무료 결과 오류: '+e.message}}
-function devPrecisionPreviewI(){
- try{
-   devSeedFree();
-   demographics.mbti='INTJ';
-   // 내향형 예시: 만남 기회를 낮게 두어 반복 접점 전략이 잘 보이게 함
-   answers.strategy_opportunity=1;
-   renderFree();
-   devSeedPrecision();
-   renderReport();
-   showOnly('report');
-   document.getElementById('devStatus').textContent='I 예시 · INTJ';
- }catch(e){
-   console.error(e);
-   document.getElementById('devStatus').textContent='정밀 I 오류: '+e.message;
- }
-}
-function devPrecisionPreviewE(){
- try{
-   devSeedFree();
-   // 외향형 예시. 실제 점수 계산은 동일하고, 접점 전략/MBTI 해석만 외향형 프로필로 확인.
-   demographics.mbti='ENFP';
-   // 새로운 후보를 만나는 빈도도 조금 높여 외향형 결과의 문맥을 자연스럽게 확인.
-   answers.strategy_opportunity=3;
-   renderFree();
-   devSeedPrecision();
-   renderReport();
-   showOnly('report');
-   document.getElementById('devStatus').textContent='E 예시 · ENFP';
- }catch(e){
-   console.error(e);
-   document.getElementById('devStatus').textContent='정밀 E 오류: '+e.message;
- }
-}
-// 이전 함수명을 호출하는 코드가 남아 있어도 내향형 미리보기로 연결.
-function devPrecisionPreview(){devPrecisionPreviewI()}
 
 </script>
 </body>
